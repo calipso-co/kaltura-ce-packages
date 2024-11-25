@@ -4,10 +4,11 @@
 Summary: Kaltura Open Source Video Platform - Analytics 
 Name: kaltura-dwh
 Version: 15.1.0
-Release: 3
+Release: 4
 License: AGPLv3+
 Group: Server/Platform 
 Source0: https://github.com/kaltura/dwh/archive/%{name}-%{codename}-%{version}.zip
+Source1: dwh_fact_active_users.sql
 URL: https://github.com/kaltura/dwh/tree/master 
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: kaltura-base,kaltura-pentaho,jre, kaltura-postinst 
@@ -41,6 +42,10 @@ This package configures the Data Warehouse [DWH] analytics component.
 # for Apache access logs.
 mkdir -p $RPM_BUILD_ROOT%{prefix}/web/logs
 cp -r %{_builddir}/dwh-%{codename}-%{version} $RPM_BUILD_ROOT%{prefix}/dwh
+
+# See https://github.com/kaltura/dwh/blob/Orion-15.1.0/ddl/dw/facts/dwh_fact_active_users.sql#L3
+# This drops the critical dwh_fact_plays table, instead of dwh_fact_active_users
+cp %{SOURCE1} $RPM_BUILD_ROOT%{prefix}/dwh/ddl/dw/facts/dwh_fact_active_users.sql
 find  $RPM_BUILD_ROOT%{prefix}/dwh/ -name "*.sh" -type f -exec chmod +x {} \;
 
 %clean
@@ -74,6 +79,9 @@ fi
 
 
 %changelog
+* Mon Nov 25 2024 jesse@packman.io <Jesse Portnoy> - 15.1.0-4
+- Override typo in https://github.com/kaltura/dwh/blob/Orion-15.1.0/ddl/dw/facts/dwh_fact_active_users.sql#L3
+
 * Tue Jan 5 2021 jess.portnoy@kaltura.com <Jess Portnoy> - 15.1.0-2
 - 2021 bug (https://github.com/kaltura/dwh/commit/b0b0288063c06216ef0a2fecb68cffcfe6950c36)
 

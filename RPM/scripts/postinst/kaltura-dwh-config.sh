@@ -1,4 +1,4 @@
-#!/bin/bash -e 
+#!/usr/bin/bash -e
 #===============================================================================
 #          FILE: kaltura-dwh-config.sh
 #         USAGE: ./kaltura-dwh-config.sh 
@@ -55,8 +55,9 @@ Output is logged to $BASE_DIR/dwh/logs/dwh_setup.log.${NORMAL}
 	LASTMO=$(date '+%Y%m' -d "-$(date +%d) days")
 	
 	# Replace various old dates to avoid issues with partitions
-	olddates=(20130831 201308 20130901 20130902 20131231 201312 20140101 201406 20140701 201510 20151101 20170430 20170501 201705 20170601)
-	newdates=($LDAYLM $LASTMO $FDAYCM $SDAYCM $LDAYLM $LASTMO $FDAYCM $LASTMO $FDAYCM $LASTMO $FDAYCM) 
+	olddates=(20130831 201308 20130901 20130902 20131231 201312 20140101 201406 20140701 201510 20151101)
+
+        newdates=($LDAYLM $LASTMO $FDAYCM $SDAYCM $LDAYLM $LASTMO $FDAYCM $LASTMO $FDAYCM $LASTMO $FDAYCM)
 	
 	for ((i=0;i<${#olddates[@]};++i)); do
 		FILES=`grep -rl "${olddates[i]}" $BASE_DIR/dwh/ddl/` || true
