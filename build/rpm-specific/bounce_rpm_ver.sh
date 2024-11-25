@@ -33,7 +33,7 @@ if [ -n "$4" ];then
 else
 	CHANGELOG_MSG="Ver Bounce to $NEWVER"
 fi
-SOURCES_RC=~/sources/platform-install-packages/build/sources.rc
+SOURCES_RC=~/sources/kaltura-ce-packages/build/sources.rc
 if [ ! -r $SOURCES_RC ];then
 	echo "Could not find $SOURCES_RC"
 	exit 1

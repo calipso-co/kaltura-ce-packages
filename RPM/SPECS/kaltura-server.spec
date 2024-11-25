@@ -1,13 +1,13 @@
 Summary: Kaltura Open Source Video Platform all in 1 package 
 Name: kaltura-server
-Version: 19.4.0
+Version: 21.4.0
 Release: 1
 License: AGPLv3+
 Group: Server/Platform 
 URL: http://kaltura.org
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: kaltura-front, kaltura-batch, kaltura-sphinx, kaltura-dwh, kaltura-widgets, kaltura-html5lib,kaltura-nginx, kaltura-elasticsearch
+Requires: kaltura-front, kaltura-batch, kaltura-sphinx, kaltura-dwh, kaltura-html5lib,kaltura-nginx, kaltura-elasticsearch
 
 %description
 Kaltura is the world's first Open Source Online Video Platform, transforming the way people work, 
@@ -46,6 +46,9 @@ fi
 %files
 
 %changelog
+* Mon Nov 25 2024 Jesse Portnoy <jesse@packman.io> - 21.4.0-1
+- No need for kaltura-widgets anymore (these are all old Flash components)
+
 * Thu Mar 9 2023 jess.portnoy@kaltura.com <Jess Portnoy> - 19.4.0-1
 - Ver Bounce to 19.4.0
 

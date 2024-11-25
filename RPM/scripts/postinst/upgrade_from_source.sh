@@ -32,7 +32,7 @@ mv /tmp/server/configurations /tmp/server/configurations.git
 cp -rp /tmp/server/* $APP_DIR/
 cp -rp /tmp/server/.git $APP_DIR/
 KALTURA_VERSION=`rpm -q kaltura-base --queryformat %{version}`
-CODE_NAME="Rigel"
+CODE_NAME="Ursa"
 GITHUB_PLATFORM_INSTALL_PACKAGES_REPO_URL="https://github.com/kaltura/platform-install-packages/raw/${CODE_NAME}-$KALTURA_VERSION"
 
 curl -L $GITHUB_PLATFORM_INSTALL_PACKAGES_REPO_URL/RPM/SOURCES/KDLOperatorFfmpeg1_1_1.php > $APP_DIR/infra/cdl/kdl/KDLOperatorFfmpeg1_1_1.php

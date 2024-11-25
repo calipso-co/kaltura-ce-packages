@@ -6,7 +6,7 @@
 %define apache_group	apache
 Summary: Kaltura Open Source Video Platform - batch server 
 Name: kaltura-batch
-Version: 19.4.0
+Version: 21.4.0
 Release: 1
 License: AGPLv3+
 Group: Server/Platform 
@@ -15,7 +15,7 @@ Source1: kaltura-batch
 Source3: batch.ini.template 
 URL: http://kaltura.org
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires: kaltura-base, kaltura-ffmpeg, kaltura-ffmpeg-aux, php, curl, httpd, sox, ImageMagick, kaltura-sshpass, php-pecl-memcache,php-pecl-apc,memcached,, mod_ssl
+Requires: kaltura-base, kaltura-ffmpeg, kaltura-ffmpeg-aux, php, curl, httpd, sox, ImageMagick, kaltura-sshpass, php-pecl-memcache,php-pecl-apcu,memcached,, mod_ssl
 #php-pecl-zendopcache
 %{?el7:Requires: php-pecl-zendopcache}
 #PreReq: httpd
@@ -131,6 +131,9 @@ service httpd restart
 
 
 %changelog
+* Mon Nov 25 2024 Jesse Portnoy <jesse@packman.io> - 21.4.0-1
+- Support PHP 8 (remove PHP APC dep)
+
 * Thu Mar 9 2023 jess.portnoy@kaltura.com <Jess Portnoy> - 19.4.0-1
 - Ver Bounce to 19.4.0
 

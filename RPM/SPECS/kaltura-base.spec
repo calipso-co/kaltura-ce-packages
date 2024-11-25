@@ -6,12 +6,12 @@
 %define confdir %{prefix}/app/configurations
 %define logdir %{prefix}/log
 %define webdir %{prefix}/web
-%define codename Scorpius 
+%define codename Ursa 
 
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-base
-Version: 19.4.0
-Release: 3
+Version: 21.4.0
+Release: 1
 License: AGPLv3+
 Group: Server/Platform 
 Source0: https://github.com/kaltura/server/archive/%{codename}-%{version}.zip 
@@ -46,11 +46,20 @@ Source45: CrossKalturaDistributionProfile.php
 Source46: CrossKalturaDistributionPlugin.php
 Source47: CrossKalturaEntryObjectsContainer.php
 Source48: php.yml
+Source49: kConf.php
+Source50: Config.php
+Source51: kInfraMemcacheCacheWrapper.php
+Source52: JsClientGenerator.php
+Source53: NodeClientGenerator.php
+Source54: uiConf.php
+Source55: deploy_v2.php
+Source56: 01.Partner.template.ini
+Source57: EnumSelect.php
 
 URL: https://github.com/kaltura/server/tree/%{codename}-%{version}
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: rsync,mysql,kaltura-monit,kaltura-postinst,cronie, php-cli, php-xml, php-curl, php-mysqli, php-pdo_mysql, php-gd, php-gmp, php-ldap, php-mbstring, php-process, chrony, mailx
+Requires: rsync,mariadb,kaltura-monit,kaltura-postinst,cronie, php-cli, php-xml, php-curl, php-mysqli, php-pdo_mysql, php-gd, php-gmp, php-ldap, php-mbstring, php-process, chrony, s-nail
 
 %description
 Kaltura is the world's first Open Source Online Video Platform, transforming the way people work, 
@@ -148,11 +157,12 @@ sed -i 's@2\s*=\s*"kmcng"@;2 = "kmcng"@g' $RPM_BUILD_ROOT%{confdir}/elasticDynam
 sed -i 's@sphinx_log@kaltura_sphinx_log.sphinx_log@g' $RPM_BUILD_ROOT%{prefix}/app/deployment/updates/sql/2020_11_05_sphinx_log_dc_id_index.sql
 rm $RPM_BUILD_ROOT%{prefix}/clients-generator/sources/android/DemoApplication/libs/libWVphoneAPI.so
 #rm $RPM_BUILD_ROOT%{prefix}/clients-generator/sources/android2/DemoApplication/libs/libWVphoneAPI.so
+rm $RPM_BUILD_ROOT%{prefix}/clients-generator/sources/objc/DemoApplication/libWViPhoneAPI.a
 rm $RPM_BUILD_ROOT%{confdir}/.project
 # we have our own that is provided with the kaltura-monit package
 rm $RPM_BUILD_ROOT%{confdir}/monit/monit.template.conf
 rm $RPM_BUILD_ROOT%{prefix}/app/deployment/base/scripts/init_content/04.dropFolder.-4.template.xml
-sed 's@#!/usr/bin/python@#!/usr/bin/python2@g' -i $RPM_BUILD_ROOT%{prefix}/app/alpha/scripts/utils/apiGrep.py
+sed 's@#!/usr/bin/python@#!/usr/bin/python3@g' -i $RPM_BUILD_ROOT%{prefix}/app/alpha/scripts/utils/apiGrep.py
 
 # we bring our own for kaltura-front and kaltura-batch.
 cp %{SOURCE4} $RPM_BUILD_ROOT%{prefix}/app/batch/batches/Mailer/emails_en.template.ini
@@ -193,6 +203,21 @@ tar zxf %{SOURCE10} -C $RPM_BUILD_ROOT%{webdir}/content
 # tmp patch until https://github.com/kaltura/server/pull/9492 is merged
 cp %{SOURCE48} $RPM_BUILD_ROOT%{prefix}/app/vendor/symfony-data/config/php.yml
 
+# PHP 8 patches
+cp %{SOURCE49} $RPM_BUILD_ROOT%{prefix}/app/alpha/config/kConf.php
+cp %{SOURCE50} $RPM_BUILD_ROOT%{prefix}/app/vendor/ZendFramework/library/Zend/Config.php 
+cp %{SOURCE50} $RPM_BUILD_ROOT%{prefix}/clients-generator/lib/infra/Zend/Config.php
+cp %{SOURCE51} $RPM_BUILD_ROOT%{prefix}/app/infra/cache/kInfraMemcacheCacheWrapper.php
+cp %{SOURCE52} $RPM_BUILD_ROOT%{prefix}/clients-generator/lib/JsClientGenerator.php
+cp %{SOURCE53} $RPM_BUILD_ROOT%{prefix}/clients-generator/lib/NodeClientGenerator.php
+cp %{SOURCE54} $RPM_BUILD_ROOT%{prefix}/app/alpha/lib/model/uiConf.php
+cp %{SOURCE55} $RPM_BUILD_ROOT%{prefix}/app/deployment/uiconf/deploy_v2.php
+
+# Do not create unneeded system partners
+cp %{SOURCE56} $RPM_BUILD_ROOT%{prefix}/app/deployment/base/scripts/init_data/01.Partner.template.ini
+
+# Admin console->partner->config, do not crash if an enum does not exist
+cp %{SOURCE57} $RPM_BUILD_ROOT%{prefix}/app/admin_console/lib/Kaltura/Form/Element/EnumSelect.php
 
 %{__mkdir_p} $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 cat > $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/kaltura_base.sh << EOF
@@ -375,6 +400,8 @@ fi
 %doc %{prefix}/app/VERSION.txt
 
 %changelog
+* Mon Nov 25 2024 Jesse Portnoy <jesse@packman.io> - 21.4.0-1
+- Support PHP 8
 * Thu Mar 23 2023 jess.portnoy@kaltura.com <Jess Portnoy> - 19.4.0-2
 - Added `VirtualEvent` plugin
 
