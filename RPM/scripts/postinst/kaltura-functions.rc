@@ -88,6 +88,30 @@ call_base_config()
 
 }
 
+check_mysql_strict_mode()
+{
+	SUPER_USER=$1
+	SUPER_USER_PASSWD=$2
+	DB1_HOST=$3
+	DB1_PORT=$4
+	echo -e "${CYAN}Checking MySQL strict mode..${NORMAL}"
+	STRICT_MODE=`echo "SELECT @@sql_mode;" | mysql -h$DB1_HOST -u$SUPER_USER -p$SUPER_USER_PASSWD -P$DB1_PORT -N`
+	if [ $? -ne 0 ];then
+cat << EOF
+Failed to run:
+# mysql -h$MYSQL_HOST -u$MYSQL_SUPER_USER -p$MYSQL_SUPER_USER_PASSWD -P$MYSQL_PORT."
+Check your settings."
+EOF
+		return 1
+	fi
+	if [ -n "$STRICT_MODE" ];then
+		echo -e "${BRIGHT_RED}MySQL Strict mode is enabled. 
+Kaltura requires that you disable strict mode. Please set \"sql_mode =""\" under the [mysqld] section in your MySQL config file${NORMAL}"
+		return 1 
+	else
+		echo -e "${CYAN}MySQL configuration is compatible${NORMAL}"
+	fi
+}
 
 check_mysql_settings()
 {
@@ -108,8 +132,8 @@ check_mysql_settings()
 	fi
 	INNODB_LOG_FILE_SIZE=`echo "select @@innodb_log_file_size;" | mysql -u$DB_USER -p$DB_PASSWD -h$DB_HOST -P$DB_PORT -N`
 	if [ "$INNODB_LOG_FILE_SIZE" -lt 33554432 ];then
-		echo "innodb_log_file_size => 32M"
-		return 1
+		MSG="innodb_log_file_size => 32M"
+		RC=1
 	fi
 	MAX_ALLOWED_PACKET=`echo "select @@max_allowed_packet;" | mysql -u$DB_USER -p$DB_PASSWD -h$DB_HOST -P$DB_PORT -N`
 	if [ "$MAX_ALLOWED_PACKET" -lt 16777216 ];then

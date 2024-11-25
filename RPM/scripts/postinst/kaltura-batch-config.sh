@@ -33,9 +33,6 @@ if [ "$PHP_MINOR_VER" -gt 3 ];then
         fi
 fi
 
-if [ -r $CONSENT_FILE ];then
-	. $CONSENT_FILE
-fi
 if [ -n "$1" -a -r "$1" ];then
 	ANSFILE=$1
 	. $ANSFILE
@@ -50,7 +47,6 @@ ${NORMAL}
 "
 fi
 trap 'my_trap_handler "${LINENO}" $?' ERR
-send_install_becon `basename $0` "install_start" 0 
 CONFIG_DIR=/opt/kaltura/app/configurations
 if [ -r $CONFIG_DIR/system.ini ];then
 	. $CONFIG_DIR/system.ini
@@ -119,4 +115,3 @@ ln -sf $BASE_DIR/app/configurations/monit/monit.avail/batch.rc $BASE_DIR/app/con
 ln -sf $BASE_DIR/app/configurations/monit/monit.avail/memcached.rc $BASE_DIR/app/configurations/monit/monit.d/enabled.memcached.rc
 service kaltura-monit stop >> /dev/null 2>&1
 service kaltura-monit start
-send_install_becon "`basename $0`" "install_success" 0

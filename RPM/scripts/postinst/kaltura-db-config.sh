@@ -45,7 +45,6 @@ if [ ! -r "$KALTURA_FUNCTIONS_RC" ];then
 fi
 . $KALTURA_FUNCTIONS_RC
 trap 'my_trap_handler "${LINENO}" $?' ERR
-send_install_becon "`basename $0`" "install_start" 0 
 
 MYSQL_OP_HOST=$1
 MYSQL_DWH_HOST=$2
@@ -79,28 +78,7 @@ function setup_db
 	done
 }
 # check DB connectivity:
-echo -e "${CYAN}Checking MySQL version..${NORMAL}"
-MYVER=`echo "select version();" | mysql -h$MYSQL_OP_HOST -u$MYSQL_SUPER_USER -p$MYSQL_SUPER_USER_PASSWD -P$MYSQL_PORT -N`
-MYMAJVER=`echo $MYVER| awk -F "." '{print $1}'`
-MYMINORVER=`echo $MYVER| awk -F "." '{print $2}'`
-
-if [ "$MYMAJVER" -ne 5 ];then
-	echo -e "${BRIGHT_RED}Your version of MySQL is incompatible. 
-The Kaltura Server supports all MySQL versions between 5.1 and 5.6, including.
-Please install and configure MySQL according to the instructions on the Kaltura install manual before proceeding with the Kaltura installation.${NORMAL}"
-	exit 1
-else
-	echo -e "${CYAN}Ver $MYVER found compatible${NORMAL}"
-fi
-
-if [ $? -ne 0 ];then
-cat << EOF
-Failed to run:
-# mysql -h$MYSQL_OP_HOST -u$MYSQL_SUPER_USER -p$MYSQL_SUPER_USER_PASSWD -P$MYSQL_PORT."
-Check your settings."
-EOF
-	exit 4
-fi
+check_mysql_strict_mode $MYSQL_SUPER_USER $MYSQL_SUPER_USER_PASSWD $MYSQL_OP_HOST $MYSQL_PORT
 if ! check_mysql_settings $MYSQL_SUPER_USER $MYSQL_SUPER_USER_PASSWD $MYSQL_OP_HOST $MYSQL_PORT ;then
 	if [ $MYSQL_OP_HOST = 'localhost' -o $MYSQL_OP_HOST = '127.0.0.1' ];then
 		echo "Your MySQL settings are incorrect, do you wish to run $BASE_DIR/bin/kaltura-mysql-settings.sh in order to correct them? [Y/n]"
@@ -260,4 +238,3 @@ set +e
 #	service kaltura-monit stop >> /dev/null 2>&1
 #	service kaltura-monit restart
 #fi
-send_install_becon "`basename $0`" "install_success" 0 
