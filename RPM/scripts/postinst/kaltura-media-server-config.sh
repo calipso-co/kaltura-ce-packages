@@ -30,12 +30,6 @@ if ! rpm -q kaltura-media-server;then
 	exit 0
 fi
 
-if [ -r $CONSENT_FILE ];then
-	. $CONSENT_FILE
-elif [ -z "$USER_CONSENT" ];then
-	get_tracking_consent
-fi
-. $CONSENT_FILE
 
 if [ -n "$1" -a -r "$1" ];then
 	ANSFILE=$1
@@ -139,9 +133,7 @@ if [ ! -r "$BROADCAST_FILE" ];then
 	exit 2
 fi
 
-send_install_becon "`basename $0`" "install_start" 0
 cd $BASE_DIR/media-server
 ant
 /etc/init.d/WowzaStreamingEngine stop >> /dev/null 2>&1
 /etc/init.d/WowzaStreamingEngine start
-send_install_becon "`basename $0`" "install_success" 0

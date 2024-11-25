@@ -3,7 +3,7 @@
  
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-html5lib
-Version: v2.98
+Version: v2.101
 Release: 1
 Epoch: 0 
 License: AGPLv3+
@@ -19,6 +19,9 @@ Source7: kaltura-html5lib-v2.44.tar.gz
 Source8: kaltura-html5lib-v2.45.tar.gz
 Source9: kaltura-html5lib-v2.45.1.tar.gz
 Source10: kaltura-html5lib-v2.46.tar.gz
+Source11: KalturaUtils.php
+Source12: MwEmbedAutoLoader.php
+Source13: EntryResult.php
 
 URL: https://github.com/kaltura/mwEmbed 
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -61,6 +64,9 @@ for i in v2.14  v2.37  v2.37.1  v2.38.3  v2.42  v2.44  v2.45  v2.45.1 v2.46 %{ve
 	fi
 	cp -r %{_builddir}/%{name}-$i $RPM_BUILD_ROOT%{html5lib_base}/$i
 	cp %{SOURCE1} $RPM_BUILD_ROOT%{html5lib_base}/$i/
+	cp %{SOURCE11} $RPM_BUILD_ROOT%{html5lib_base}/$i/modules/KalturaSupport/
+	cp %{SOURCE12} $RPM_BUILD_ROOT%{html5lib_base}/$i/includes/
+	cp %{SOURCE13} $RPM_BUILD_ROOT%{html5lib_base}/$i/modules/KalturaSupport/
 	ln -sf %{prefix}/app/configurations/html5.php $RPM_BUILD_ROOT%{html5lib_base}/$i/LocalSettings.php 
 	mkdir $RPM_BUILD_ROOT%{html5lib_base}/$i/cache
 done
@@ -87,6 +93,14 @@ fi
 %config %{html5lib_base}/%{version}/LocalSettings.KalturaPlatform.php
 
 %changelog
+* Mon Nov 25 2024 jesse@packman.io <Jesse Portnoy> - 2.101-1
+- FEC-12891 - Play Button and CC option not accessible.
+- FEC-12897 - Focus hidden element on page
+- FEC-12891 - Play Button and CC option not accessible.
+- FEC-12897 - Focus hidden element on page
+- SUP-37284 - v2 player - Empty Playlist no longer says no videos found
+- PHP 8 related patches
+
 * Wed Oct 12 2022 jess.portnoy@kaltura.com <Jess Portnoy> - 2.98-1
 - FEC-12575 - YouTube entries time update issue
 - FEC-12521 - [ECDN] Player V2 Fallback Option Upon Inaccessible API Gateway

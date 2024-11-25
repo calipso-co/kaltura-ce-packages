@@ -31,7 +31,6 @@ verify_user_input()
                 $VALS
                 "
                 echo -en "${BRIGHT_RED}$OUT${NORMAL}\n"
-                send_install_becon kaltura-push-server "install_fail"  "$OUT"
                 exit $RC 
         fi
 }

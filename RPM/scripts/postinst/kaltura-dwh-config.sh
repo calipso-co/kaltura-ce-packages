@@ -1,4 +1,4 @@
-#!/bin/bash -e 
+#!/usr/bin/bash -e
 #===============================================================================
 #          FILE: kaltura-dwh-config.sh
 #         USAGE: ./kaltura-dwh-config.sh 
@@ -22,9 +22,6 @@ if [ ! -r "$KALTURA_FUNCTIONS_RC" ];then
 	exit 3
 fi
 . $KALTURA_FUNCTIONS_RC
-if [ -r $CONSENT_FILE ];then
-	. $CONSENT_FILE
-fi
 if ! rpm -q kaltura-dwh;then
 	echo -e "${BRIGHT_BLUE}Skipping as kaltura-dwh is not installed.${NORMAL}"
 	exit 0 
@@ -45,7 +42,6 @@ if [ ! -r "$RC_FILE" ];then
 fi
 . $RC_FILE
 trap - ERR
-send_install_becon "`basename $0`" "install_start" 0 
 TABLES=`echo "show tables" | mysql -h$DWH_HOST -u$SUPER_USER -p$SUPER_USER_PASSWD -P$DWH_PORT kalturadw 2> /dev/null`
 if [ -z "$TABLES" ];then 
 	echo -e "${CYAN}Deploying analytics warehouse DB, please be patient as this may take a while...
@@ -60,7 +56,8 @@ Output is logged to $BASE_DIR/dwh/logs/dwh_setup.log.${NORMAL}
 	
 	# Replace various old dates to avoid issues with partitions
 	olddates=(20130831 201308 20130901 20130902 20131231 201312 20140101 201406 20140701 201510 20151101)
-	newdates=($LDAYLM $LASTMO $FDAYCM $SDAYCM $LDAYLM $LASTMO $FDAYCM $LASTMO $FDAYCM $LASTMO $FDAYCM) 
+
+        newdates=($LDAYLM $LASTMO $FDAYCM $SDAYCM $LDAYLM $LASTMO $FDAYCM $LASTMO $FDAYCM $LASTMO $FDAYCM)
 	
 	for ((i=0;i<${#olddates[@]};++i)); do
 		FILES=`grep -rl "${olddates[i]}" $BASE_DIR/dwh/ddl/` || true
@@ -86,4 +83,3 @@ if [ -n "$LATEST_JAVA" ];then
 	alternatives --install /usr/bin/java java $LATEST_JAVA/bin/java  20000
 fi
 echo -e "${CYAN}DWH configured.${NORMAL}"
-send_install_becon "`basename $0`" "install_success" 0 

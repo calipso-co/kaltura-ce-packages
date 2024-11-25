@@ -38,7 +38,6 @@ else
        ZONE="unknown"
 fi  
 OUT="1"
-send_install_becon "`basename $0`" "install_start" 0
 $BASE_DIR/bin/kaltura-base-config.sh "$ANSFILE"
 if [ $? -ne 0 ];then
        echo -e "${BRIGHT_RED}ERROR: $BASE_DIR/bin/kaltura-base-config.sh failed:( You can re-run it when the issue is fixed.${NORMAL}"
@@ -170,5 +169,4 @@ chown -R kaltura.apache $BASE_DIR/app/cache/ $BASE_DIR/log
 chmod 775 $BASE_DIR/web/content
 send_post_inst_msg $ADMIN_CONSOLE_ADMIN_MAIL 
 
-send_install_becon "`basename $0`" "install_success" 0
 

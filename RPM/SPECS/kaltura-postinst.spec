@@ -1,8 +1,8 @@
 %define prefix /opt/kaltura 
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-postinst 
-Version: 1.0.34
-Release: 121
+Version: 1.0.37
+Release: 1
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-%{version}.tar.gz
@@ -82,6 +82,9 @@ find %{_sysconfdir}/logrotate.d -type l -name "kaltura_*" -exec rm {} \;
 %config %{prefix}/app/configurations/*
 
 %changelog
+* Mon Nov 25 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-1
+- Test for strict mode rather than the MySQL version; exit if enabled
+ 
 * Thu Oct 20 2022 jess.portnoy@kaltura.com <Jess Portnoy> - 1.0.33-119
 - Replace token for additional system partners
 

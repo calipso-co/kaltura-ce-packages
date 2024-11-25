@@ -95,7 +95,6 @@ if ! rpm -q kaltura-front;then
 	exit 0 
 fi
 trap 'my_trap_handler "${LINENO}" $?' ERR
-send_install_becon "`basename $0`" "install_start" 0 
 KALTURA_APACHE_CONF=$APP_DIR/configurations/apache
 KALTURA_APACHE_CONFD=$KALTURA_APACHE_CONF/conf.d
 KMC_PATH=`ls -ld $BASE_DIR/web/flash/kmc/v* 2>/dev/null|awk -F " " '{print $NF}' |tail -1`
@@ -326,4 +325,3 @@ sed -i "s/@HTML5_VER@/$HTML5LIB_VERSION/g" -i $BASE_DIR/apps/studioV3/$HTML5_STU
 		fi
 	fi
 	trap 'my_trap_handler "${LINENO}" $?' ERR
-send_install_becon `basename $0` install_success 0 

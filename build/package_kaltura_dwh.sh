@@ -1,7 +1,7 @@
 #!/bin/bash -e 
 #===============================================================================
-#          FILE: package_kaltura_web.sh
-#         USAGE: ./package_kaltura_web.sh 
+#          FILE: package_kaltura_dwh.sh
+#         USAGE: ./package_kaltura_dwh.sh 
 #   DESCRIPTION: 
 #       OPTIONS: ---
 # 	LICENSE: AGPLv3+
@@ -26,6 +26,6 @@ if [ ! -x "`which wget 2>/dev/null`" ];then
 	exit 2
 fi
 
-wget $DWH_URI -O$RPM_SOURCES_DIR/$DWH_RPM_NAME-$DWH_VERSION.zip 
+wget -4 $DWH_URI -O$RPM_SOURCES_DIR/$DWH_RPM_NAME-$DWH_VERSION.zip 
 echo "Packaged into $RPM_SOURCES_DIR/$DWH_RPM_NAME-$DWH_VERSION.zip"
-#rpmbuild -ba $RPM_SPECS_DIR/$DWH_RPM_NAME.spec
+rpmbuild -ba $RPM_SPECS_DIR/$DWH_RPM_NAME.spec

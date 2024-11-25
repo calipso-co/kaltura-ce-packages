@@ -27,9 +27,6 @@ if ! rpm -q kaltura-sphinx;then
 	echo -e "${BRIGHT_RED}ERROR: First install kaltura-sphinx.${NORMAL}"
 	exit 0
 fi
-if [ -r $CONSENT_FILE ];then
-	. $CONSENT_FILE
-fi
 if [ -n "$1" -a -r "$1" ];then
 	ANSFILE=$1
 	. $ANSFILE
@@ -56,7 +53,6 @@ fi
 ln -sf $BASE_DIR/app/configurations/logrotate/kaltura_populate /etc/logrotate.d/
 ln -sf $BASE_DIR/app/configurations/logrotate/kaltura_sphinx /etc/logrotate.d/
 trap 'my_trap_handler "${LINENO}" $?' ERR
-send_install_becon "`basename $0`" "install_start" 0 
 mkdir -p $LOG_DIR/sphinx/data $APP_DIR/cache//sphinx
 chown $OS_KALTURA_USER.$OS_KALTURA_USER $APP_DIR/cache/sphinx $LOG_DIR/sphinx/data $BASE_DIR/sphinx
 echo "sphinxServer = `hostname`
@@ -68,4 +64,3 @@ ln -sf $BASE_DIR/app/configurations/monit/monit.avail/sphinx.rc $BASE_DIR/app/co
 ln -sf $BASE_DIR/app/configurations/monit/monit.avail/sphinx.populate.rc $BASE_DIR/app/configurations/monit/monit.d/enabled.sphinx.populate.rc
 service kaltura-monit stop >> /dev/null 2>&1
 service kaltura-monit start
-send_install_becon "`basename $0`" "install_success" 0
