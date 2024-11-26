@@ -87,5 +87,5 @@ cd $SOURCE_PACKAGING_DIR
 rm -rf $SOURCE_PACKAGING_DIR/html5lib3_tmp
 echo "Packaged into $RPM_SOURCES_DIR/$HTML5LIB3_RPM_NAME-$HTML5LIB3_VERSION.tar.gz"
 if [ -x "`which rpmbuild 2>/dev/null`" ];then
-	#rpmbuild -bb $RPM_SPECS_DIR/$HTML5LIB3_RPM_NAME.spec
+	rpmbuild -bb $RPM_SPECS_DIR/$HTML5LIB3_RPM_NAME.spec
 fi
