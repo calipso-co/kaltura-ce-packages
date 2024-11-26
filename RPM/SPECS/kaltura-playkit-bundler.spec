@@ -10,7 +10,7 @@
 Summary: Kaltura PlayKit Bundler 
 Name: kaltura-playkit-bundler 
 Version: 1.2.0
-Release: 15
+Release: 16
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-v%{version}.tar.gz
@@ -73,6 +73,7 @@ fi
 export PATH=$PATH:/usr/local/bin
 cd %{prefix} && rm -rf %{prefix}/node_modules && yarn remove gulp ; npm remove gulp 
 npm install yarn forever -g && yarn install && yarn add gulp@3.9.1 && yarn add global  forever gulp@3.9.1
+ln -s %{prefix}/node_modules/.bin/gulp %{kaltura_prefix}/bin/
 /sbin/chkconfig --add %{name}
 if [ -r %{kaltura_prefix}/app/configurations/local.ini ];then
 	SALT=`grep remote_addr_header_salt %{kaltura_prefix}/app/configurations/local.ini|sed 's@^remote_addr_header_salt\s*=\s*\(.*\)$@\1@g'| sed 's@"@@g'`
@@ -100,6 +101,9 @@ fi
 %doc %{prefix}/README.md
 
 %changelog
+* Tue Nov 26 2024 jesse@packman.io <Jesse Portnoy> - v1.2.0-16
+- Add symlink: /opt/kaltura/bin/gulp -> /opt/kaltura/playkit-js-bundle-builder/node_modules/.bin/gulp
+
 * Tue Jun 9 2020 jess.portnoy@kaltura.com <Jess Portnoy> - v1.2.0-11
 - Revert to Gulp 3.9.1 
 
