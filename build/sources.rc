@@ -427,7 +427,7 @@ HTML5_APP_STUDIO7_URI="https://api.github.com/repos/kaltura/player-studio-v7/tar
 HTML5_APP_STUDIO7_RPM_NAME=kaltura-html5-studio7
 
 # HTML5 lib v3
-HTML5LIB3_VERSION="3.12.1"
+HTML5LIB3_VERSION="3.17.5"
 HTML5LIB3_REPO_NAME=kaltura-player-js
 HTML5LIB3_URI="https://github.com/kaltura/$HTML5LIB3_REPO_NAME/archive/v$HTML5LIB3_VERSION.tar.gz"
 HTML5LIB3_RPM_NAME="kaltura-html5lib3"

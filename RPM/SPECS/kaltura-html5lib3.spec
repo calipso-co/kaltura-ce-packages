@@ -1,10 +1,10 @@
 %define prefix /opt/kaltura
-%define html5lib3_base %{prefix}/html5/html5lib/playkitSources/kaltura-ovp-player
+%define html5lib3_base %{prefix}/html5/html5lib/playkitSources/
 
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-html5lib3
-Version: 3.12.1
-Release: 1
+Version: 3.17.5
+Release: 2
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-%{version}.tar.gz 
@@ -33,9 +33,9 @@ This package installs the Kaltura HTML5 v3 player library.
 %setup -q -n %{version} 
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{html5lib3_base}/%{version}
-cp -r * $RPM_BUILD_ROOT%{html5lib3_base}/%{version} 
-cp %{SOURCE1} $RPM_BUILD_ROOT%{html5lib3_base}/
+mkdir -p $RPM_BUILD_ROOT%{html5lib3_base}
+cp -r * $RPM_BUILD_ROOT%{html5lib3_base}/ 
+cp %{SOURCE1} $RPM_BUILD_ROOT%{html5lib3_base}/kaltura-ovp-player
 
 %clean
 rm -rf %{buildroot}
@@ -49,6 +49,12 @@ rm -rf %{buildroot}
 %{html5lib3_base}
 
 %changelog
+* Tue Nov 26 2024 jesse@packman.io <Jesse Portnoy> - 3.17.5-2
+- Rearrange structure of /opt/kaltura/html5/html5lib/playkitSources to avoid loading unneeded plugins
+
+* Tue Nov 26 2024 jesse@packman.io <Jesse Portnoy> - 3.17.5-1
+- New upstream version
+
 * Thu Mar 9 2023 jess.portnoy@kaltura.com <Jess Portnoy> - 3.12.1-1
 - Image Player support
 - FEC-12987 - update playkit-js-ui to 0.75.2 (65f88ff)
