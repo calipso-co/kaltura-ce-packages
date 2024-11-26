@@ -12,7 +12,7 @@ Source3: sql_updates
 URL: http://kaltura.org
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: bc,unzip,redhat-lsb-core,wget,dmidecode
+Requires: bc,unzip,lsb_release,wget,dmidecode
 
 %description
 Kaltura is the world's first Open Source Online Video Platform, transforming the way people work, 

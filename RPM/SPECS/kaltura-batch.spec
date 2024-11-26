@@ -22,7 +22,7 @@ Requires: kaltura-base, kaltura-ffmpeg, kaltura-ffmpeg-aux, php, curl, httpd, so
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
-Requires(preun): initscripts
+#Requires(preun): initscripts
 BuildArch: noarch
 
 %description

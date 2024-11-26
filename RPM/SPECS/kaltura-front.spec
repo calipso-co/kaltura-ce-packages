@@ -18,7 +18,7 @@ Requires: httpd, php, curl, kaltura-base, kaltura-ffmpeg, ImageMagick, memcached
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
-Requires(preun): initscripts
+#Requires(preun): initscripts
 BuildArch: noarch
 
 %description

@@ -1,4 +1,4 @@
-#!/bin/bash - 
+#!/usr/bin/bash -
 #===============================================================================
 #          FILE: kaltura-db-config.sh
 #         USAGE: ./kaltura-db-config.sh 
@@ -173,6 +173,9 @@ fi
 echo "Cleaning cache.."
 find $APP_DIR/cache/ -type f -exec rm {} \;
 rm -f $LOG_DIR/installPlugins.log $LOG_DIR/insertDefaults.log $LOG_DIR/insertPermissions.log $LOG_DIR/insertContent.log
+service httpd restart
+service php-fpm restart
+
 
 echo -e "${CYAN}Populating DB with data.. please wait..${NORMAL}"
 echo -e "${CYAN}Output for $APP_DIR/deployment/base/scripts/installPlugins.php being logged into $LOG_DIR/installPlugins.log ${NORMAL}"
@@ -200,8 +203,7 @@ if [ "$IS_SSL" = 'Y' -o "$IS_SSL" = 1 -o "$IS_SSL" = 'y' -o "$IS_SSL" = 'true' ]
 fi
 
 echo -e "${BRIGHT_BLUE}Generating UI confs..${NORMAL}"
-php $APP_DIR/deployment/uiconf/deploy_v2.php --ini=$WEB_DIR/flash/kmc/$KMC_VERSION/config.ini >> $LOG_DIR/deploy_v2.log  2>&1
-php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$BASE_DIR/apps/kmcng/$KMCNG_VERSION/deploy/config.ini >> /dev/null
+php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$BASE_DIR/apps/kmcng/$KMCNG_VERSION/deploy/config.ini >> $LOG_DIR/deploy_v2.log  2>&1
 
 #for i in $APP_DIR/deployment/updates/scripts/patches/*.sh;do
 #	$i

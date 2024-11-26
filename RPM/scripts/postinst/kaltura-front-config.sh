@@ -144,15 +144,15 @@ else
 		read -e CHAIN_FILE
 	fi
 	# check key and crt match
-	CRT_SUM=`openssl x509 -in $CRT_FILE -modulus -noout | openssl md5`
-	KEY_SUM=`openssl rsa -in $KEY_FILE -modulus -noout | openssl md5`
+	CRT_SUM=`openssl x509 -noout -pubkey -in $CRT_FILE  | openssl md5`
+	KEY_SUM=`openssl pkey -pubout -in $KEY_FILE | openssl md5`
 	if [ "$CRT_SUM" != "$KEY_SUM" ];then
 		echo -e ${BRIGHT_RED}"
 
 	ERROR: MD5 sums between .key and .crt files DO NOT MATCH
-	# openssl rsa -in $KEY_PATH -modulus -noout | openssl md5
+	# openssl pkey -pubout -in $KEY_FILE | openssl md5
 	$KEY_HASH
-	# openssl x509 -in $CERT_PATH -modulus -noout | openssl md5
+	# openssl x509 -noout -pubkey -in $CRT_FILE  | openssl md5
 	$CRT_HASH
 	${NORMAL}
 	"

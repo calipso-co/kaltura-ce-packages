@@ -32,7 +32,7 @@ Epoch: 1
 %else
 Group: System Environment/Daemons
 Requires(pre): shadow-utils
-Requires: initscripts >= 8.36
+#Requires: initscripts >= 8.36
 Requires(post): chkconfig
 %endif
 

@@ -10,7 +10,7 @@
 Summary: Kaltura PlayKit Bundler 
 Name: kaltura-playkit-bundler 
 Version: 1.2.0
-Release: 14
+Release: 15
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-v%{version}.tar.gz
@@ -70,6 +70,7 @@ fi
 
 
 %post
+export PATH=$PATH:/usr/local/bin
 cd %{prefix} && rm -rf %{prefix}/node_modules && yarn remove gulp ; npm remove gulp 
 npm install yarn forever -g && yarn install && yarn add gulp@3.9.1 && yarn add global  forever gulp@3.9.1
 /sbin/chkconfig --add %{name}
