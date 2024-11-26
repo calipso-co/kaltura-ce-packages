@@ -2,7 +2,7 @@
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-postinst 
 Version: 1.0.37
-Release: 1
+Release: 2
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-%{version}.tar.gz
@@ -82,6 +82,10 @@ find %{_sysconfdir}/logrotate.d -type l -name "kaltura_*" -exec rm {} \;
 %config %{prefix}/app/configurations/*
 
 %changelog
+* Tue Nov 26 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-2
+- Hopefully an SSL verification flow that will work for both Let's Encrypt 
+  and other certs (old one now fails with Let's encrypt)
+
 * Mon Nov 25 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-1
 - Test for strict mode rather than the MySQL version; exit if enabled
  

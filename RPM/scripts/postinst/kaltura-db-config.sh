@@ -174,7 +174,9 @@ echo "Cleaning cache.."
 find $APP_DIR/cache/ -type f -exec rm {} \;
 rm -f $LOG_DIR/installPlugins.log $LOG_DIR/insertDefaults.log $LOG_DIR/insertPermissions.log $LOG_DIR/insertContent.log
 service httpd restart
-service php-fpm restart
+if [ -d /etc/php-fpm.d ];then
+	service php-fpm restart
+fi
 
 
 echo -e "${CYAN}Populating DB with data.. please wait..${NORMAL}"

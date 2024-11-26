@@ -167,6 +167,10 @@ find $BASE_DIR/app/cache/ $BASE_DIR/log -type d -exec chmod 775 {} \;
 find $BASE_DIR/app/cache/ $BASE_DIR/log -type f -exec chmod 664 {} \; 
 chown -R kaltura.apache $BASE_DIR/app/cache/ $BASE_DIR/log
 chmod 775 $BASE_DIR/web/content
+service httpd restart
+if [ -d /etc/php-fpm.d ];then
+	service php-fpm restart
+fi
 send_post_inst_msg $ADMIN_CONSOLE_ADMIN_MAIL 
 
 

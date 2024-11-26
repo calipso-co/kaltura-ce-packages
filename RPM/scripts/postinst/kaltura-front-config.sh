@@ -97,7 +97,6 @@ fi
 trap 'my_trap_handler "${LINENO}" $?' ERR
 KALTURA_APACHE_CONF=$APP_DIR/configurations/apache
 KALTURA_APACHE_CONFD=$KALTURA_APACHE_CONF/conf.d
-KMC_PATH=`ls -ld $BASE_DIR/web/flash/kmc/v* 2>/dev/null|awk -F " " '{print $NF}' |tail -1`
 KMCNG_PATH=`ls -ld $BASE_DIR/apps/kmcng/v* 2>/dev/null|awk -F " " '{print $NF}' |tail -1`
 #unset IS_SSL
 if [ -z "$IS_SSL" ];then
@@ -319,7 +318,6 @@ sed -i "s/@HTML5_VER@/$HTML5LIB_VERSION/g" -i $BASE_DIR/apps/studioV3/$HTML5_STU
 			php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$BASE_DIR/apps/liveanalytics/$LIVE_ANALYTICS_FRONT_VERSION/deploy/config.ini >> /dev/null
 		fi
 	# we can't use rpm -q kaltura-kmc because this node may not be the one where we installed the KMC RPM on, as it resides in the web dir and does not need to be installed on all front nodes.
-		php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$KMC_PATH/config.ini >> /dev/null
 		if [ -d "$KMCNG_PATH" ];then
 			php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$KMCNG_PATH/deploy/config.ini >> /dev/null
 		fi
