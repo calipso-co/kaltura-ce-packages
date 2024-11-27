@@ -1,12 +1,13 @@
 Summary: Kaltura Open Source Video Platform all in 1 package 
 Name: kaltura-server
 Version: 21.4.0
-Release: 1
+Release: 3
 License: AGPLv3+
 Group: Server/Platform 
 URL: http://kaltura.org
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+Requires(pre): kaltura-base
 Requires: kaltura-front, kaltura-batch, kaltura-sphinx, kaltura-dwh, kaltura-html5lib,kaltura-nginx, kaltura-elasticsearch
 
 %description

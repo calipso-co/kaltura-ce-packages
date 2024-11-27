@@ -1,9 +1,9 @@
-%define baseurl installrepo.kaltura.org
+%define baseurl installrepo.cloudvideo.com.co
 %define testpath releases/nightly/RPMS
 %define prefix /opt/kaltura 
 Summary: Kaltura Server release file and package configuration
 Name: kaltura-release
-Version: 19.4.0
+Version: 21.4.0
 Release: 1
 License: AGPLv3+
 Group: Server/Platform 
@@ -26,15 +26,15 @@ GPG keys used to sign them.
 # URL: http://kaltura.org/
 [Kaltura]
 name = Kaltura Server
-baseurl = http://%{baseurl}/releases/latest/\$releasever/RPMS/\$basearch/
-gpgkey = http://%{baseurl}/releases/RPM-GPG-KEY-kaltura-curr
+baseurl = http://%{baseurl}/kaltura_repo/latest/\$releasever/\$basearch/
+gpgkey = http://%{baseurl}/kaltura_repo/RPM-GPG-KEY-kaltura-ce-calipso
 gpgcheck = 1 
 enabled = 1
 
 [Kaltura-noarch]
 name = Kaltura Server arch independent
-baseurl = http://%{baseurl}/releases/latest/\$releasever/RPMS/noarch
-gpgkey = http://%{baseurl}/releases/RPM-GPG-KEY-kaltura-curr
+baseurl = http://%{baseurl}/kaltura_repo/latest/\$releasever/noarch
+gpgkey = http://%{baseurl}/kaltura_repo/RPM-GPG-KEY-kaltura-ce-calipso
 gpgcheck = 1
 enabled = 1
 EOF
@@ -65,6 +65,9 @@ exit 0
 %config %{_sysconfdir}/yum.repos.d/kaltura.repo
 
 %changelog
+- Wed Nov 27 2024 jesse@packman.io <Jesse Portnoy> - 21.4.0-1
+- Use calipso repos
+
 * Thu Mar 9 2023 jess.portnoy@kaltura.com <Jess Portnoy> - 19.4.0-1
 - Ver Bounce to 19.4.0
 
