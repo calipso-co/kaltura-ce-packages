@@ -2,7 +2,7 @@
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-postinst 
 Version: 1.0.37
-Release: 2
+Release: 3
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-%{version}.tar.gz
@@ -82,6 +82,9 @@ find %{_sysconfdir}/logrotate.d -type l -name "kaltura_*" -exec rm {} \;
 %config %{prefix}/app/configurations/*
 
 %changelog
+* Tue Nov 26 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-3
+- kaltura-front-config.sh: remove Flash KMC references
+
 * Tue Nov 26 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-2
 - Hopefully an SSL verification flow that will work for both Let's Encrypt 
   and other certs (old one now fails with Let's encrypt)
