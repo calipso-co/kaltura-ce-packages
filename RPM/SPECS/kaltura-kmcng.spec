@@ -1,7 +1,7 @@
 %define prefix /opt/kaltura
 Name:	kaltura-kmcng
 Epoch:1
-Version: v5.17.0
+Version: v7.9.0
 Release: 1
 Summary: Kaltura HTML5 Management Console
 
@@ -47,9 +47,13 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %{prefix}/apps/kmcng/%{version}
 %config %{prefix}/apps/kmcng/%{version}/deploy/*
+%config %{prefix}/apps/kmcng/%{version}/deploy_v7/*
 
 
 %changelog
+* Fri Nov 29 2024 jesse@packman.io <Jesse Portnoy> - v7.9.0-1
+- Custom KMC version with support for player v3 playlists
+
 * Fri Dec 27 2019 jess.portnoy@kaltura.com <Jess Portnoy> - v5.20.0-1
 - KMCNG-2201: selected entries bucket style (#871) (06c0e5b)
 - content/playlists: Support Interactive Video entries(#880) (e6778ee)

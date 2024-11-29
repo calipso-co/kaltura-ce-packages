@@ -2,7 +2,7 @@
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-postinst 
 Version: 1.0.37
-Release: 3
+Release: 4
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-%{version}.tar.gz
@@ -82,6 +82,9 @@ find %{_sysconfdir}/logrotate.d -type l -name "kaltura_*" -exec rm {} \;
 %config %{prefix}/app/configurations/*
 
 %changelog
+* Thu Nov 29 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-4
+- Run deploy_v2.php --ini=$KMCNG_PATH/deploy_v7/config.ini 
+
 * Tue Nov 26 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-3
 - kaltura-front-config.sh: remove Flash KMC references
 

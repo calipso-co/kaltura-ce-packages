@@ -320,6 +320,7 @@ sed -i "s/@HTML5_VER@/$HTML5LIB_VERSION/g" -i $BASE_DIR/apps/studioV3/$HTML5_STU
 	# we can't use rpm -q kaltura-kmc because this node may not be the one where we installed the KMC RPM on, as it resides in the web dir and does not need to be installed on all front nodes.
 		if [ -d "$KMCNG_PATH" ];then
 			php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$KMCNG_PATH/deploy/config.ini >> /dev/null
+			php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$KMCNG_PATH/deploy_v7/config.ini >> /dev/null
 		fi
 	fi
 	trap 'my_trap_handler "${LINENO}" $?' ERR

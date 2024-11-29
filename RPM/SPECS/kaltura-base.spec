@@ -11,7 +11,7 @@
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-base
 Version: 21.4.0
-Release: 4
+Release: 7
 License: AGPLv3+
 Group: Server/Platform 
 Source0: https://github.com/kaltura/server/archive/%{codename}-%{version}.zip 
@@ -56,6 +56,7 @@ Source55: deploy_v2.php
 Source56: 01.Partner.template.ini
 Source57: EnumSelect.php
 Source58: KalturaClient.xml
+Source59: elastic.ini.template
 
 URL: https://github.com/kaltura/server/tree/%{codename}-%{version}
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -222,6 +223,8 @@ cp %{SOURCE56} $RPM_BUILD_ROOT%{prefix}/app/deployment/base/scripts/init_data/01
 cp %{SOURCE57} $RPM_BUILD_ROOT%{prefix}/app/admin_console/lib/Kaltura/Form/Element/EnumSelect.php
 
 cp %{SOURCE58} $RPM_BUILD_ROOT%{prefix}/apps/clientlibs
+
+cp %{SOURCE59} $RPM_BUILD_ROOT%{prefix}/app/configurations/elastic.ini.template
 
 %{__mkdir_p} $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 cat > $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/kaltura_base.sh << EOF
