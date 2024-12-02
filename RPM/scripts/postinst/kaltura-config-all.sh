@@ -166,6 +166,7 @@ ${NORMAL}
 find $BASE_DIR/app/cache/ $BASE_DIR/log -type d -exec chmod 775 {} \; 
 find $BASE_DIR/app/cache/ $BASE_DIR/log -type f -exec chmod 664 {} \; 
 chown -R kaltura.apache $BASE_DIR/app/cache/ $BASE_DIR/log
+chown -R elasticsearch $LOG_DIR/elasticsearch $BASE_DIR/var/lib/elasticsearch/tmp
 chmod 775 $BASE_DIR/web/content
 service httpd restart
 if [ -d /etc/php-fpm.d ];then
