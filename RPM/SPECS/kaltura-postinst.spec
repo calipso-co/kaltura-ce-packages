@@ -2,7 +2,7 @@
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-postinst 
 Version: 1.0.37
-Release: 5
+Release: 7
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-%{version}.tar.gz
@@ -82,6 +82,9 @@ find %{_sysconfdir}/logrotate.d -type l -name "kaltura_*" -exec rm {} \;
 %config %{prefix}/app/configurations/*
 
 %changelog
+* Tue Dec 3 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-7
+- Invoke $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$BASE_DIR/apps/kmcng/$KMCNG_VERSION/deploy_v7/config.ini
+in kaltura-db-config.sh 
 * Thu Nov 29 2024 jesse@packman.io <Jesse Portnoy> - 1.0.37-4
 - Run deploy_v2.php --ini=$KMCNG_PATH/deploy_v7/config.ini 
 

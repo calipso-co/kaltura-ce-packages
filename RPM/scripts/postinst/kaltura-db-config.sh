@@ -206,6 +206,7 @@ fi
 
 echo -e "${BRIGHT_BLUE}Generating UI confs..${NORMAL}"
 php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$BASE_DIR/apps/kmcng/$KMCNG_VERSION/deploy/config.ini >> $LOG_DIR/deploy_v2.log  2>&1
+php $BASE_DIR/app/deployment/uiconf/deploy_v2.php --ini=$BASE_DIR/apps/kmcng/$KMCNG_VERSION/deploy_v7/config.ini >> $LOG_DIR/deploy_v2.log  2>&1
 
 #for i in $APP_DIR/deployment/updates/scripts/patches/*.sh;do
 #	$i
