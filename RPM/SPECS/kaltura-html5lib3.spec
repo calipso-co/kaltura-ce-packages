@@ -1,14 +1,16 @@
 %define prefix /opt/kaltura
 %define html5lib3_base %{prefix}/html5/html5lib/playkitSources/
+%define ui_managers_version 1.6.3
 
 Summary: Kaltura Open Source Video Platform 
 Name: kaltura-html5lib3
 Version: 3.17.5
-Release: 2
+Release: 3
 License: AGPLv3+
 Group: Server/Platform 
 Source0: %{name}-%{version}.tar.gz 
 Source1: create_playkit_uiconf.php
+Source2: playkit-ui-managers.js
 
 URL: https://github.com/kaltura/kaltura-player-js 
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -33,14 +35,18 @@ This package installs the Kaltura HTML5 v3 player library.
 %setup -q -n %{version} 
 
 %install
-mkdir -p $RPM_BUILD_ROOT%{html5lib3_base}
+mkdir -p $RPM_BUILD_ROOT%{html5lib3_base}/playkit-ui-managers/%{ui_managers_version}
 cp -r * $RPM_BUILD_ROOT%{html5lib3_base}/ 
 cp %{SOURCE1} $RPM_BUILD_ROOT%{html5lib3_base}/kaltura-ovp-player
+cp %{SOURCE2} $RPM_BUILD_ROOT%{html5lib3_base}/playkit-ui-managers/%{ui_managers_version}
+
 
 %clean
 rm -rf %{buildroot}
 
 %post
+cd %{html5lib3_base}/playkit-ui-managers
+ln -s %{ui_managers_version} "{latest}"
 
 %postun
 
@@ -49,6 +55,9 @@ rm -rf %{buildroot}
 %{html5lib3_base}
 
 %changelog
+* Wed Dec 4 2024 jesse@packman.io <Jesse Portnoy> - 3.17.5-3
+- Include playkit-ui-managers plugin
+
 * Tue Nov 26 2024 jesse@packman.io <Jesse Portnoy> - 3.17.5-2
 - Rearrange structure of /opt/kaltura/html5/html5lib/playkitSources to avoid loading unneeded plugins
 
