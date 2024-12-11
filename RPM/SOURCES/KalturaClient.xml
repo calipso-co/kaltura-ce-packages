@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<xml apiVersion="19.4.0" generatedDate="1732057301">
-  <!-- Generated on date 19/11/24 23:01:41 -->
+<xml apiVersion="21.4.0" generatedDate="1733933397">
+  <!-- Generated on date 11/12/24 16:09:57 -->
   <enums>
     <enum name="KalturaAppTokenStatus" enumType="int">
       <const name="DISABLED" value="1"/>
@@ -1100,6 +1100,8 @@
       <const name="KSR" value="19"/>
       <const name="KUPLOAD" value="20"/>
       <const name="WEBCASTING" value="21"/>
+      <const name="SAP" value="22"/>
+      <const name="REELS" value="23"/>
     </enum>
     <enum name="KalturaUpdateMethodType" enumType="int">
       <const name="MANUAL" value="0"/>
